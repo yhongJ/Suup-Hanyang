@@ -1,0 +1,69 @@
+# 운영 서버용. 비밀값은 .env에서 읽음
+# 실행: docker compose -f docker-compose.prod.yml up -d --build
+
+services:
+  mysql:
+    image: mysql:8.4
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: suuphanyang
+      MYSQL_USER: suuphanyang
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      TZ: Asia/Seoul
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    # 외부 접속 차단. app만 접근
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${DB_ROOT_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: ../backend
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy   # DB 준비 후 시작
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      TZ: Asia/Seoul
+      DB_HOST: mysql
+      DB_USERNAME: suuphanyang
+      DB_PASSWORD: ${DB_PASSWORD}
+      ADMIN_KEY: ${ADMIN_KEY}
+      CORS_ORIGINS: https://${DOMAIN}
+      MAIL_HOST: ${MAIL_HOST}
+      MAIL_PORT: ${MAIL_PORT}
+      MAIL_USERNAME: ${MAIL_USERNAME}
+      MAIL_PASSWORD: ${MAIL_PASSWORD}
+      MAIL_FROM: ${MAIL_FROM}
+    # Nginx 경유로만 접근
+
+  nginx:
+    image: nginx:1.27-alpine
+    restart: unless-stopped
+    depends_on:
+      - app
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      DOMAIN: ${DOMAIN}
+    volumes:
+      - ../frontend:/usr/share/nginx/html:ro           # 화면 파일
+      - ./nginx/active:/etc/nginx/templates:ro          # nginx 설정
+      - ./certbot/www:/var/www/certbot:ro               # 인증서 발급 확인
+      - ./certbot/conf:/etc/letsencrypt:ro              # 발급된 인증서
+
+  certbot:
+    image: certbot/certbot
+    profiles: ["tools"]   # 인증서 발급·갱신 시에만 실행
+    volumes:
+      - ./certbot/www:/var/www/certbot
+      - ./certbot/conf:/etc/letsencrypt
+
+volumes:
+  mysql-data:

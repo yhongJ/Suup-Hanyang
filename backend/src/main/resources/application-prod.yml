@@ -1,0 +1,25 @@
+# 운영용. 비밀값은 환경변수로 주입
+# 필수: DB_PASSWORD, ADMIN_KEY(32자 이상), CORS_ORIGINS, MAIL_*
+
+server:
+  # 프록시의 X-Forwarded-For로 실제 IP 사용
+  forward-headers-strategy: native
+
+spring:
+  datasource:
+    # Docker 내부 mysql 컨테이너
+    url: jdbc:mysql://${DB_HOST:mysql}:3306/suuphanyang?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+  mail:
+    host: ${MAIL_HOST}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+
+app:
+  cors-origins: ${CORS_ORIGINS}
+  mail:
+    mode: smtp
+    from: ${MAIL_FROM}

@@ -1,0 +1,11 @@
+# 로컬 개발용
+# 샘플 데이터 사용 시 locations에 classpath:db/sample 추가. 변경 시 DB 초기화 필요
+spring:
+  flyway:
+    locations: classpath:db/migration
+  jpa:
+    show-sql: false
+
+logging:
+  level:
+    com.suuphanyang: debug

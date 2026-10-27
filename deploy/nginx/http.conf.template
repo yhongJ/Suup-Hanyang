@@ -1,0 +1,15 @@
+# 인증서 발급 전 임시 설정
+server {
+    listen 80;
+    server_name ${DOMAIN} www.${DOMAIN};
+
+    # 인증서 발급 확인 경로
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+
+    location / {
+        return 200 "suuphanyang: preparing https\n";
+        default_type text/plain;
+    }
+}

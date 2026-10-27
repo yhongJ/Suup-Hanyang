@@ -1,0 +1,19 @@
+# 로컬 개발용 MySQL
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: suuphanyang-mysql
+    environment:
+      MYSQL_DATABASE: suuphanyang
+      MYSQL_USER: suuphanyang
+      MYSQL_PASSWORD: suuphanyang
+      MYSQL_ROOT_PASSWORD: root
+      TZ: Asia/Seoul
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    ports:
+      - "3307:3306"
+    volumes:
+      - suuphanyang-mysql-data:/var/lib/mysql
+
+volumes:
+  suuphanyang-mysql-data:

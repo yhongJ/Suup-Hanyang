@@ -1,0 +1,126 @@
+/* 기본 글꼴 Noto Sans KR */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap');
+
+:root{
+  --paper:#FFFFFF; --surface:#FFFFFF; --ink:#172033; --muted:#5D6778; --line:#DCE1E9;
+  --hy-blue:#0E4A84; /* 한양대 블루 */
+  --blue:#0E4A84; --blue-soft:#E3ECF6; --free:#17805A; --free-soft:#E1F2EA;
+  --ended:#B7790A; --ended-soft:#FBF0D9; --now:#D23B3B;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#10151F; --surface:#18202D; --ink:#E7ECF4; --muted:#9AA5B6; --line:#2A3445;
+    --hy-blue:#4F8FD6; /* 다크 모드용 */
+    --blue:#6FA6E0; --blue-soft:#1C2E45; --free:#4CC08E; --free-soft:#163327;
+    --ended:#E3B04B; --ended-soft:#3A2E14; --now:#F06B6B;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#10151F; --surface:#18202D; --ink:#E7ECF4; --muted:#9AA5B6; --line:#2A3445;
+  --hy-blue:#4F8FD6;
+  --blue:#6FA6E0; --blue-soft:#1C2E45; --free:#4CC08E; --free-soft:#163327;
+  --ended:#E3B04B; --ended-soft:#3A2E14; --now:#F06B6B;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.wrap{max-width:560px;margin:0 auto;padding:0 16px 96px}
+
+/* 상단 시간 바 */
+.clock{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);
+  padding:14px 0 10px;border-bottom:1px solid var(--line);margin-bottom:16px}
+.clock-row{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.brand{font-weight:700;font-size:18px;letter-spacing:-0.02em}
+.brand small{font-weight:500;color:var(--muted);font-size:13px;margin-left:6px}
+.time-big{font-size:30px;font-weight:600;letter-spacing:-0.03em;font-variant-numeric:tabular-nums}
+.time-ctl{display:flex;gap:8px;align-items:center;margin-top:8px}
+.time-ctl select{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:4px 8px}
+.time-ctl input[type=range]{flex:1;accent-color:var(--hy-blue)}
+.demo-tag{font-size:12px;color:var(--muted)}
+
+h2{font-size:17px;margin:22px 0 10px;letter-spacing:-0.01em}
+.hint{color:var(--muted);font-size:13px;margin:0 0 12px}
+
+.chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.chip{flex:none;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px;font-size:13px}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+/* 강의실 목록 */
+.room{display:grid;grid-template-columns:6px 1fr auto;gap:0 12px;align-items:center;width:100%;
+  text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:10px;
+  padding:12px 14px 12px 0;margin-bottom:8px;overflow:hidden}
+.room .bar{align-self:stretch;margin:-12px 0}
+.room.free .bar{background:var(--hy-blue)}
+.room.ended .bar{background:repeating-linear-gradient(180deg,var(--hy-blue) 0 6px,transparent 6px 10px)} /* 끝남·휴강은 점선 */
+.room-name{font-weight:600}
+.room-sub{font-size:13px;color:var(--muted)}
+.until{text-align:right;font-variant-numeric:tabular-nums}
+.until b{display:block;font-size:17px}
+.until span{font-size:12px;color:var(--muted)}
+.room.free .until b{color:var(--free)}
+.room.ended .until b{color:var(--ended)}
+.empty{border:1px dashed var(--line);border-radius:10px;padding:18px;color:var(--muted);text-align:center;font-size:14px}
+
+/* 시간표 */
+.pickers{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pickers select{width:100%;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:9px 10px}
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin:12px 0}
+.days button{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:6px 0}
+.days button[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
+.grid-scroll{overflow-x:auto}
+.grid{position:relative;display:grid;grid-template-columns:44px 1fr;min-width:280px}
+.hours{position:relative}
+.hours div{position:absolute;right:8px;font-size:11px;color:var(--muted);transform:translateY(-50%);font-variant-numeric:tabular-nums}
+.lane{position:relative;border-left:1px solid var(--line);
+  background-image:linear-gradient(var(--line) 1px,transparent 1px);background-size:100% 52px}
+.block{position:absolute;left:6px;right:6px;border-radius:6px;padding:6px 8px;text-align:left;border:none;
+  background:var(--blue-soft);color:var(--ink);border-left:3px solid var(--blue);overflow:hidden}
+.block b{display:block;font-size:13px;font-weight:600}
+.block span{font-size:12px;color:var(--muted)}
+.block.is-ended{background:var(--ended-soft);border-left-color:var(--ended)}
+.nowline{position:absolute;left:-4px;right:0;height:2px;background:var(--now);z-index:2}
+.nowline::before{content:"";position:absolute;left:-3px;top:-3px;width:8px;height:8px;border-radius:50%;background:var(--now)}
+
+/* 상태 카드 & 체크 */
+.status{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px}
+.status .lbl{font-size:13px;color:var(--muted)}
+.status .big{font-size:18px;font-weight:600;margin:2px 0 8px}
+.tally{display:flex;gap:16px;font-variant-numeric:tabular-nums;margin-bottom:10px}
+.tally div{font-size:13px;color:var(--muted)}
+.tally b{font-size:22px;color:var(--ink);margin-right:2px}
+.tally .e b{color:var(--ended)}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.actions .btn:last-child{grid-column:1 / -1} /* 수업 중 버튼은 한 줄 전체 */
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:10px;font-weight:600}
+.btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+.btn[aria-pressed="true"]{outline:2px solid var(--ended);outline-offset:1px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn[aria-pressed="true"]:disabled{opacity:1}
+.note{font-size:12px;color:var(--muted);margin-top:8px}
+
+/* 인증 */
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.field input{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:10px 12px}
+.verified{display:flex;gap:10px;align-items:center;background:var(--free-soft);border-radius:10px;padding:12px 14px;margin-bottom:12px}
+.verified b{color:var(--free)}
+.err{color:var(--now);font-size:13px;min-height:1.2em}
+
+/* 하단 탭 */
+nav.tabs{position:fixed;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);
+  padding-bottom:env(safe-area-inset-bottom,0px);z-index:10}
+nav.tabs .in{max-width:560px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr)}
+nav.tabs button{background:none;border:none;padding:12px 0;font-size:13px;color:var(--muted)}
+nav.tabs button[aria-current="page"]{color:var(--ink);font-weight:700;box-shadow:inset 0 2px 0 var(--blue)}
+
+.toast{position:fixed;left:50%;bottom:80px;transform:translateX(-50%);background:var(--ink);color:var(--paper);
+  padding:8px 14px;border-radius:8px;font-size:13px;opacity:0;pointer-events:none;transition:opacity .2s}
+.toast.show{opacity:1}
+@media (prefers-reduced-motion:reduce){.toast{transition:none}}

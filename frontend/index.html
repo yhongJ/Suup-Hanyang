@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>수업하냥 — 한양대 서울캠퍼스 강의실</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="clock">
+    <div class="clock-row">
+      <div class="brand">수업하냥<small>한양대 서울캠퍼스</small></div>
+      <div class="time-big" id="timeBig">--:--</div>
+    </div>
+    <div class="time-ctl">
+      <select id="daySel" aria-label="요일"></select>
+      <input type="range" id="timeRange" min="540" max="1435" step="5" aria-label="시각">
+      <button class="chip" id="nowBtn">지금</button>
+    </div>
+    <div class="demo-tag" id="demoTag"></div>
+  </header>
+  <main id="view"></main>
+</div>
+
+<nav class="tabs"><div class="in">
+  <button data-tab="find">빈 강의실</button>
+  <button data-tab="table">강의실 시간표</button>
+  <button data-tab="me">내 정보</button>
+</div></nav>
+<div class="toast" id="toast" role="status"></div>
+
+<!-- 로드 순서 유지 -->
+<script src="js/config.js"></script>
+<script src="js/mock-api.js"></script>
+<script src="js/api.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

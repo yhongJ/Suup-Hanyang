@@ -1,0 +1,6 @@
+building_code,building_name,room,day,start,end,course,professor
+ENG1,제1공학관,301호,MON,09:00,10:15,자료구조,
+ENG1,제1공학관,301호,WED,09:00,10:15,자료구조,
+ENG2,제2공학관,407호,TUE,10:30,11:45,미적분학1,
+ENG2,제2공학관,407호,THU,10:30,11:45,미적분학1,
+BIZ,경영관,305호,화,13:30,14:45,경영학원론,
