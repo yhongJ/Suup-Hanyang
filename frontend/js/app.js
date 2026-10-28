@@ -269,7 +269,14 @@
       else if (t.dataset.info) { toast(t.dataset.info); }
       else if (t.id === 'send') {
         const em = $('em').value.trim();
-        await Api.sendCode(em);
+        // 요청 전 형식 검사
+        if (!/^[^@\s]+@hanyang\.ac\.kr$/i.test(em)) throw new Error('@hanyang.ac.kr 주소만 인증할 수 있어요.');
+        t.disabled = true; t.textContent = '보내는 중…';
+        try {
+          await Api.sendCode(em);
+        } finally {
+          t.disabled = false; t.textContent = '인증 코드 보내기';
+        }
         state.pendingEmail = em; toast('인증 코드를 보냈어요'); render();
       }
       else if (t.id === 'confirm') {
@@ -278,8 +285,10 @@
       }
       else if (t.id === 'unverify') { await Api.logout(); state.user = null; render(); }
     } catch (err) {
+      // 오류는 안내칸과 토스트 둘 다 표시
       const box = $('err');
-      if (box) box.textContent = err.message; else toast(err.message);
+      if (box) box.textContent = err.message;
+      toast(err.message);
     }
   });
   $('view').addEventListener('change', (e) => {
