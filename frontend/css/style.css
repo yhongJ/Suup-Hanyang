@@ -1,71 +1,99 @@
+/* =========================================================
+   1. Design System
+   ========================================================= */
 
-/* 1. Design tokens */
 :root {
-  --paper: #F7F8FA;
+  --paper: #FFFFFF;
   --surface: #FFFFFF;
 
-  --ink: #1153b6;
-  --muted: #758093;
-  --line: #E5E9EF;
+  --ink: #202A38;
+  --muted: #6B7280;
+  --line: #E9EBEF;
 
   --hy-blue: #174F85;
   --blue: #174F85;
-  --blue-soft: #EDF3F9;
+  --blue-soft: #F1F5F9;
 
-  --free: #2469A6;
-  --free-soft: #EDF3F9;
+  --free: #202A38;
+  --free-soft: #F5F6F7;
 
-  --ended: #7D8795;
-  --ended-soft: #F0F2F5;
+  --ended: #737985;
+  --ended-soft: #F5F6F7;
 
-  --now: #D84B4B;
+  --now: #D94B4B;
 
   box-sizing: border-box;
+
   padding-top: env(safe-area-inset-top, 0px);
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
+
+/* Dark mode */
+
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --paper: #151922;
-    --surface: #1D232E;
-    --ink: #EDF1F7;
-    --muted: #9BA6B7;
-    --line: #303847;
+    --paper: #17191D;
+    --surface: #1E2126;
 
-    --hy-blue: #79A9D7;
-    --blue: #79A9D7;
-    --blue-soft: #26364A;
+    --ink: #E9EBEF;
+    --muted: #969DA8;
+    --line: #33373F;
 
-    --free: #8CB9E4;
-    --free-soft: #26364A;
+    --hy-blue: #82ACD3;
+    --blue: #82ACD3;
+    --blue-soft: #252F3A;
 
-    --ended: #A0A9B6;
-    --ended-soft: #2A303A;
+    --free: #E9EBEF;
+    --free-soft: #292D33;
+
+    --ended: #858C96;
+    --ended-soft: #292D33;
 
     --now: #F07878;
   }
 }
 
 :root[data-theme="dark"] {
-  --paper: #151922;
-  --surface: #1D232E;
-  --ink: #EDF1F7;
-  --muted: #9BA6B7;
-  --line: #303847;
+  --paper: #17191D;
+  --surface: #1E2126;
 
-  --hy-blue: #79A9D7;
-  --blue: #79A9D7;
-  --blue-soft: #26364A;
+  --ink: #E9EBEF;
+  --muted: #969DA8;
+  --line: #33373F;
 
-  --free: #8CB9E4;
-  --free-soft: #26364A;
+  --hy-blue: #82ACD3;
+  --blue: #82ACD3;
+  --blue-soft: #252F3A;
 
-  --ended: #A0A9B6;
-  --ended-soft: #2A303A;
+  --free: #E9EBEF;
+  --free-soft: #292D33;
+
+  --ended: #858C96;
+  --ended-soft: #292D33;
 
   --now: #F07878;
 }
+
+
+/* Dark mode: 밝은 파랑 위 글자는 어둡게 */
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .btn.primary,
+  :root:not([data-theme="light"]) .time-ctl button {
+    color: #17191D;
+  }
+}
+
+:root[data-theme="dark"] .btn.primary,
+:root[data-theme="dark"] .time-ctl button {
+  color: #17191D;
+}
+
+
+/* =========================================================
+   2. Global
+   ========================================================= */
 
 *, *::before, *::after {
   box-sizing: inherit;
@@ -78,24 +106,30 @@ html {
 
 body {
   margin: 0;
+
   background: var(--paper);
   color: var(--ink);
 
   font-family:
-    -apple-system,
-    BlinkMacSystemFont,
     "Apple SD Gothic Neo",
     "Malgun Gothic",
-    "Noto Sans KR",
+    -apple-system,
+    BlinkMacSystemFont,
     sans-serif;
 
   font-size: 15px;
+  font-weight: 400;
   line-height: 1.55;
-  letter-spacing: -0.025em;
+
+  letter-spacing: -0.035em;
+
   -webkit-font-smoothing: antialiased;
 }
 
-button, input, select, textarea {
+button,
+input,
+select,
+textarea {
   font: inherit;
   color: inherit;
   letter-spacing: inherit;
@@ -112,12 +146,17 @@ button {
 }
 
 .wrap {
+  width: 100%;
   max-width: 560px;
+
   margin: 0 auto;
-  padding: 0 18px 104px;
+  padding: 0 18px 100px;
 }
 
-/* 2. Header & clock */
+
+/* =========================================================
+   3. Header & Clock
+   ========================================================= */
 
 .clock {
   position: sticky;
@@ -125,7 +164,8 @@ button {
   z-index: 5;
 
   background: var(--paper);
-  padding: 16px 0 14px;
+
+  padding: 15px 0 13px;
   margin-bottom: 20px;
 
   border-bottom: 1px solid var(--line);
@@ -133,30 +173,31 @@ button {
 
 .clock-row {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
   gap: 12px;
 }
 
 .brand {
   font-size: 19px;
-  font-weight: 750;
+  font-weight: 700;
   letter-spacing: -0.055em;
 }
 
 .brand small {
-  display: inline-block;
   margin-left: 5px;
+
   color: var(--muted);
-  font-size: 13px;
-  font-weight: 450;
+  font-size: 12px;
+  font-weight: 400;
   letter-spacing: -0.035em;
 }
 
 .time-big {
-  font-size: 28px;
-  font-weight: 700;
-  letter-spacing: -0.055em;
+  font-size: 27px;
+  font-weight: 650;
+  letter-spacing: -0.045em;
+
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
@@ -164,58 +205,95 @@ button {
 .time-ctl {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+
   margin-top: 12px;
 }
 
 .time-ctl select {
-  min-height: 42px;
-  padding: 7px 12px;
+  min-height: 38px;
+  padding: 6px 10px;
+
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: 4px;
+
   background: var(--surface);
+  font-size: 13px;
 }
 
 .time-ctl input[type="range"] {
   flex: 1;
   min-width: 0;
+
   accent-color: var(--hy-blue);
   cursor: pointer;
 }
 
-.demo-tag {
-  margin-top: 5px;
-  color: var(--muted);
-  font-size: 12px;
-  letter-spacing: -0.015em;
+.time-ctl button {
+  min-height: 36px;
+  padding: 5px 12px;
+
+  border: 1px solid var(--hy-blue);
+  border-radius: 4px;
+
+  background: var(--hy-blue);
+  color: #FFFFFF;
+
+  font-size: 13px;
+  font-weight: 500;
 }
 
-/* 3. Section headings */
+.demo-tag {
+  margin-top: 5px;
+
+  color: var(--muted);
+  font-size: 12px;
+}
+
+
+/* =========================================================
+   4. Section Typography
+   ========================================================= */
 
 h2 {
   margin: 26px 0 8px;
+
   font-size: 18px;
+  font-weight: 650;
   line-height: 1.4;
-  font-weight: 700;
+
   letter-spacing: -0.045em;
 }
 
 .hint {
-  margin: 0 0 14px;
+  margin: 0 0 13px;
+
   color: var(--muted);
   font-size: 13px;
-  line-height: 1.65;
+  line-height: 1.6;
 }
 
-/* 4. Building filters */
+
+/* =========================================================
+   5. Building Filters
+   Flat text navigation
+   ========================================================= */
 
 .chips {
   display: flex;
-  gap: 7px;
+  gap: 0;
+
   overflow-x: auto;
-  padding: 2px 0 5px;
+  padding: 0;
+
+  border-bottom: 1px solid var(--line);
+
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
+
+  /* 오른쪽 흐림: 옆으로 더 있음 표시 */
+  -webkit-mask-image: linear-gradient(to right, #000 85%, transparent);
+  mask-image: linear-gradient(to right, #000 85%, transparent);
 }
 
 .chips::-webkit-scrollbar {
@@ -224,93 +302,107 @@ h2 {
 
 .chip {
   flex: none;
-  min-height: 36px;
-  padding: 6px 14px;
 
-  border: 1px solid var(--line);
-  border-radius: 9px;
-  background: var(--surface);
+  min-height: 40px;
+  padding: 8px 13px;
 
-  color: var(--ink);
+  border: none;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+
+  background: transparent;
+  color: var(--muted);
+
   font-size: 13px;
   font-weight: 500;
-
-  transition:
-    background-color 0.15s ease,
-    border-color 0.15s ease,
-    color 0.15s ease;
+  white-space: nowrap;
 }
 
 .chip[aria-pressed="true"] {
-  background: var(--hy-blue);
-  border-color: var(--hy-blue);
-  color: #FFFFFF;
-  font-weight: 600;
+  border-bottom-color: var(--hy-blue);
+
+  background: transparent;
+  color: var(--hy-blue);
+
+  font-weight: 700;
 }
 
-/* 5. Recently ended / empty states */
+
+/* =========================================================
+   6. Recently Ended / Empty
+   ========================================================= */
 
 .empty {
-  padding: 20px 14px;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: var(--surface);
+  padding: 22px 12px;
 
+  border: none;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+
+  background: transparent;
   color: var(--muted);
+
   text-align: center;
   font-size: 13px;
 }
 
-/* 6. Classroom cards */
+
+/* =========================================================
+   7. Classroom List
+   No left accent bars / Simple divider layout
+   ========================================================= */
 
 .room {
   display: grid;
-  grid-template-columns: 3px minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) auto;
+
   align-items: center;
-  gap: 0 13px;
+  gap: 12px;
 
   width: 100%;
-  margin-bottom: 9px;
-  padding: 13px 14px 13px 0;
+  margin: 0;
+  padding: 15px 3px;
 
   text-align: left;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 12px;
+
+  background: transparent;
+
+  border: none;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+
   overflow: hidden;
 
-  transition:
-    border-color 0.15s ease,
-    background-color 0.15s ease;
+  transition: background-color 0.12s ease;
+}
+
+/* Remove decorative status bars */
+
+.room .bar {
+  display: none;
 }
 
 .room:active {
   background: var(--blue-soft);
 }
 
-.room .bar {
-  align-self: stretch;
-  margin: -13px 0;
-  background: var(--line);
-}
-
-.room.free .bar {
-  background: var(--hy-blue);
-}
-
-.room.ended .bar {
-  background: var(--ended);
+@media (hover: hover) {
+  .room:hover {
+    background: var(--blue-soft);
+  }
 }
 
 .room-name {
   font-size: 15px;
+  font-weight: 600;
   line-height: 1.45;
-  font-weight: 650;
-  letter-spacing: -0.04em;
+
+  letter-spacing: -0.035em;
 }
 
 .room-sub {
-  margin-top: 3px;
+  margin-top: 4px;
+
   color: var(--muted);
   font-size: 12px;
 }
@@ -318,33 +410,47 @@ h2 {
 .until {
   text-align: right;
   white-space: nowrap;
+
   font-variant-numeric: tabular-nums;
 }
 
 .until b {
   display: block;
-  font-size: 16px;
+
+  font-size: 15px;
+  font-weight: 600;
   line-height: 1.45;
-  font-weight: 700;
-  letter-spacing: -0.035em;
+
+  letter-spacing: -0.025em;
 }
 
 .until span {
   display: block;
   margin-top: 3px;
+
   color: var(--muted);
   font-size: 11px;
 }
 
 .room.free .until b {
-  color: var(--hy-blue);
+  color: var(--ink);
 }
 
+/* 끝남·휴강도 사용 가능한 강의실. 근거 문구만 강조 */
+.room.ended .room-name,
 .room.ended .until b {
-  color: var(--ended);
+  color: var(--ink);
 }
 
-/* 7. Timetable selectors */
+.room.ended .room-sub {
+  color: var(--hy-blue);
+  font-weight: 500;
+}
+
+
+/* =========================================================
+   8. Timetable Selectors
+   ========================================================= */
 
 .pickers {
   display: grid;
@@ -354,39 +460,56 @@ h2 {
 
 .pickers select {
   width: 100%;
-  min-height: 42px;
-  padding: 9px 12px;
+  min-height: 40px;
+  padding: 8px 10px;
 
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: 4px;
+
   background: var(--surface);
+  font-size: 13px;
 }
 
+
+/* Weekday navigation */
+
 .days {
-  display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
-  gap: 5px;
-  margin: 12px 0 16px;
+  display: flex;
+  gap: 0;
+
+  margin: 13px 0 17px;
+
+  border-bottom: 1px solid var(--line);
 }
 
 .days button {
+  flex: 1;
   min-width: 0;
-  padding: 7px 0;
 
-  border: 1px solid transparent;
-  border-radius: 9px;
-  background: var(--surface);
+  padding: 9px 0 10px;
+
+  border: none;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+
+  background: transparent;
+  color: var(--muted);
 
   font-size: 13px;
   font-weight: 500;
 }
 
 .days button[aria-pressed="true"] {
-  background: var(--hy-blue);
-  border-color: var(--hy-blue);
-  color: #FFFFFF;
-  font-weight: 650;
+  border-bottom-color: var(--hy-blue);
+
+  background: transparent;
+  color: var(--hy-blue);
+
+  font-weight: 700;
 }
+
+
+/* Timetable grid */
 
 .grid-scroll {
   overflow-x: auto;
@@ -395,8 +518,10 @@ h2 {
 
 .grid {
   position: relative;
+
   display: grid;
   grid-template-columns: 42px minmax(0, 1fr);
+
   min-width: 280px;
 }
 
@@ -407,42 +532,50 @@ h2 {
 .hours div {
   position: absolute;
   right: 8px;
+
   transform: translateY(-50%);
 
   color: var(--muted);
   font-size: 11px;
+
   font-variant-numeric: tabular-nums;
 }
 
 .lane {
   position: relative;
+
   border-left: 1px solid var(--line);
+
   background-image:
     linear-gradient(var(--line) 1px, transparent 1px);
+
   background-size: 100% 52px;
 }
 
 .block {
   position: absolute;
+
   left: 6px;
   right: 6px;
+
   overflow: hidden;
   padding: 6px 8px;
 
   border: none;
   border-left: 3px solid var(--hy-blue);
-  border-radius: 6px;
+  border-radius: 2px;
 
   background: var(--blue-soft);
   color: var(--ink);
+
   text-align: left;
 }
 
 .block b {
   display: block;
+
   font-size: 12px;
   font-weight: 650;
-  line-height: 1.5;
 }
 
 .block span {
@@ -455,35 +588,46 @@ h2 {
   border-left-color: var(--ended);
 }
 
+
+/* Current time indicator */
+
 .nowline {
   position: absolute;
   left: -4px;
   right: 0;
+
   z-index: 2;
   height: 2px;
+
   background: var(--now);
 }
 
 .nowline::before {
   content: "";
+
   position: absolute;
-  top: -3px;
   left: -3px;
+  top: -3px;
 
   width: 8px;
   height: 8px;
+
   border-radius: 50%;
   background: var(--now);
 }
 
-/* 8. Status cards */
+
+/* =========================================================
+   9. Status Cards & Statistics
+   ========================================================= */
 
 .status {
   margin-bottom: 12px;
   padding: 15px;
 
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: 4px;
+
   background: var(--surface);
 }
 
@@ -494,15 +638,17 @@ h2 {
 
 .status .big {
   margin: 3px 0 10px;
+
   font-size: 18px;
-  font-weight: 700;
-  letter-spacing: -0.04em;
+  font-weight: 650;
 }
 
 .tally {
   display: flex;
   gap: 18px;
+
   margin-bottom: 12px;
+
   font-variant-numeric: tabular-nums;
 }
 
@@ -513,16 +659,20 @@ h2 {
 
 .tally b {
   margin-right: 3px;
+
   color: var(--ink);
   font-size: 21px;
-  font-weight: 700;
+  font-weight: 650;
 }
 
 .tally .e b {
-  color: var(--ended);
+  color: var(--hy-blue);
 }
 
-/* 9. Buttons */
+
+/* =========================================================
+   10. Action Buttons
+   ========================================================= */
 
 .actions {
   display: grid;
@@ -539,26 +689,30 @@ h2 {
   padding: 10px 13px;
 
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: 4px;
+
   background: var(--surface);
 
   font-size: 14px;
   font-weight: 550;
+}
 
-  transition:
-    background-color 0.15s ease,
-    border-color 0.15s ease;
+.btn.primary {
+  border-color: var(--hy-blue);
+
+  background: var(--hy-blue);
+  color: #FFFFFF;
+
+  font-weight: 600;
 }
 
 .btn:active {
   background: var(--blue-soft);
 }
 
-.btn.primary {
-  border-color: var(--hy-blue);
+.btn.primary:active {
   background: var(--hy-blue);
-  color: #FFFFFF;
-  font-weight: 650;
+  opacity: 0.85;
 }
 
 .btn[aria-pressed="true"] {
@@ -577,33 +731,38 @@ h2 {
 
 .note {
   margin-top: 8px;
+
   color: var(--muted);
   font-size: 12px;
 }
 
-/* 10. Authentication */
+
+/* =========================================================
+   11. Authentication
+   ========================================================= */
 
 .field {
   display: flex;
   flex-direction: column;
   gap: 6px;
+
   margin-bottom: 12px;
 }
 
 .field input {
   width: 100%;
-  min-height: 44px;
+  min-height: 43px;
   padding: 10px 12px;
 
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: 4px;
+
   background: var(--surface);
 }
 
 .field input:focus {
   border-color: var(--hy-blue);
   outline: none;
-  box-shadow: 0 0 0 3px var(--blue-soft);
 }
 
 .verified {
@@ -615,7 +774,8 @@ h2 {
   padding: 12px 14px;
 
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: 4px;
+
   background: var(--surface);
 }
 
@@ -625,33 +785,43 @@ h2 {
 
 .err {
   min-height: 1.2em;
+
   color: var(--now);
   font-size: 13px;
 }
 
-/* 11. Bottom navigation */
+
+/* =========================================================
+   12. Bottom Navigation
+   ========================================================= */
 
 nav.tabs {
   position: fixed;
+
   left: 0;
   right: 0;
   bottom: 0;
+
   z-index: 10;
 
   background: var(--surface);
+
   border-top: 1px solid var(--line);
+
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 nav.tabs .in {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+
   max-width: 560px;
   margin: 0 auto;
 }
 
 nav.tabs button {
   position: relative;
+
   min-height: 54px;
   padding: 10px 0;
 
@@ -659,6 +829,7 @@ nav.tabs button {
   background: transparent;
 
   color: var(--muted);
+
   font-size: 12px;
   font-weight: 500;
 }
@@ -670,39 +841,52 @@ nav.tabs button[aria-current="page"] {
 
 nav.tabs button[aria-current="page"]::before {
   content: "";
+
   position: absolute;
   top: 0;
   left: 27%;
   right: 27%;
 
   height: 2px;
-  border-radius: 0 0 2px 2px;
+
   background: var(--hy-blue);
 }
 
-/* 12. Toast */
+
+/* =========================================================
+   13. Toast
+   ========================================================= */
 
 .toast {
   position: fixed;
+
   left: 50%;
   bottom: 78px;
+
   z-index: 20;
+
   transform: translateX(-50%);
 
   max-width: calc(100vw - 32px);
+
   padding: 10px 16px;
 
-  border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: 4px;
+
   background: var(--ink);
   color: var(--surface);
 
   font-size: 13px;
   text-align: center;
-  white-space: nowrap;
+
+  /* 긴 문구 줄바꿈 */
+  width: max-content;
+  white-space: normal;
+  word-break: keep-all;
 
   opacity: 0;
   pointer-events: none;
+
   transition: opacity 0.18s ease;
 }
 
@@ -710,7 +894,10 @@ nav.tabs button[aria-current="page"]::before {
   opacity: 1;
 }
 
-/* 13. Small screens & accessibility */
+
+/* =========================================================
+   14. Responsive
+   ========================================================= */
 
 @media (max-width: 380px) {
   .wrap {
@@ -727,12 +914,13 @@ nav.tabs button[aria-current="page"]::before {
   }
 
   .time-big {
-    font-size: 25px;
+    font-size: 24px;
   }
 
-  .room {
-    gap: 0 10px;
-    padding-right: 11px;
+  .chip {
+    padding-right: 10px;
+    padding-left: 10px;
+    font-size: 12px;
   }
 
   .room-name {
@@ -740,14 +928,21 @@ nav.tabs button[aria-current="page"]::before {
   }
 
   .until b {
-    font-size: 15px;
+    font-size: 14px;
   }
 }
 
+
+/* =========================================================
+   15. Accessibility
+   ========================================================= */
+
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     scroll-behavior: auto !important;
-    transition-duration: 0.01ms !important;
-    animation-duration: 0.01ms !important;
+    transition: none !important;
+    animation: none !important;
   }
 }
